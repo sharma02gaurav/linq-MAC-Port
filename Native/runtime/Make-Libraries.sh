@@ -13,5 +13,10 @@ g++ -w -std=c++14 implementations/_NativeFrameworkConverterIMPL.cpp -shared -oli
 echo "Copying linq converter library to the test module"
 cp libs/libfrmwrklinqconverter.dylib $HOME/Desktop/testing_module/linq\ Mac\ Port\ Testing/libs/
 
+echo "compiling _NativeFrameworkMathsIMPL.cpp and generating libframeworkmaths.dylib"
+g++ -w -std=c++14 implementations/_NativeFrameworkMathsIMPL.cpp -shared -olibs/libfrmwrklinqmaths.dylib
+echo "Copying linq maths library to the test module"
+cp libs/libfrmwrklinqmaths.dylib $HOME/Desktop/testing_module/linq\ Mac\ Port\ Testing/libs/
+
 
 echo "Done Compiling.. scroll up to see errors"

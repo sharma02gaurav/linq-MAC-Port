@@ -1,7 +1,7 @@
 #include "../includes/_NativeFrameworkMaths.h"
 
 double _NativeFrameworkMaths::_squareRootApproximation(double number){
-	double precisionFactor = 0.001d;	// 3-digits precision
+	double precisionFactor = 0.001;	// 3-digits precision
 
 	// Finding the intermediate value and checking it's value i.e +ve or -ve
 	double initialApproximation = (double)number/2;
