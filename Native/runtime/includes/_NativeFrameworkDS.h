@@ -65,8 +65,8 @@ class _NativeFrameworkDSString{
 			}
 		};
 
-	public:
-		_NativeFrameworkDSString(char*);
+	public:		
+		_NativeFrameworkDSString(const char*);
 		_NativeFrameworkDSString(string);
 		_NativeFrameworkDSString(const _NativeFrameworkDSString&);
 		_NativeFrameworkDSString();
@@ -82,18 +82,18 @@ class _NativeFrameworkDSString{
 		
 		// get the first occurence index of the charcter represented by the char
 		int firstIndexOf(char);
-		int firstIndexOf(char*);
+		int firstIndexOf(const char*);
 		int firstIndexOf(string);
 		int firstIndexOf(_NativeFrameworkDSString);	// _linqString is an alias for this class
 		// defined in V1.1
 		int indexOf(char);
-		int indexOf(char*);
+		int indexOf(const char*);
 		int indexOf(string);
 		int indexOf(_NativeFrameworkDSString);
 		
 		// get the last index of the string/char
 		int lastIndexOf(char);
-		int lastIndexOf(char*);
+		int lastIndexOf(const char*);
 		int lastIndexOf(string);
 		int lastIndexOf(_NativeFrameworkDSString);
 		
@@ -106,12 +106,12 @@ class _NativeFrameworkDSString{
 		char* substring(int);
 
 		//checks for the equality of two strings
-		bool equalsTo(char*);
+		bool equalsTo(const char*);
 		bool equalsTo(string);
 		bool equalsTo(_NativeFrameworkDSString);
 
 		//checks for equality ignoring the case
-		bool equalsIgnoringCase(char*);
+		bool equalsIgnoringCase(const char*);
 		bool equalsIgnoringCase(string);
 		bool equalsIgnoringCase(_NativeFrameworkDSString);
 
@@ -141,7 +141,7 @@ class _NativeFrameworkDSString{
 
 		// check of the string contains char
 		bool contains(char);
-		bool contains(char*);
+		bool contains(const char*);
 		bool contains(_NativeFrameworkDSString);
 		bool contains(string);
 
@@ -151,28 +151,28 @@ class _NativeFrameworkDSString{
 		void replace(char, char);
 		/*	repplace one string blocks with another
 		*/
-		void replace(char*, char*);
+		void replace(const char*, const char*);
 		void replace(_NativeFrameworkDSString, _NativeFrameworkDSString);
 		void replace(string, string);
 
 		// return true if the string starts with the character in parameter
 		bool startWith(char);
 		// V1.1
-		bool startWith(char*);
+		bool startWith(const char*);
 		bool startWith(string);
 		bool startWith(_NativeFrameworkDSString);
 		bool startsWith(char);
-		bool startsWith(char*);
+		bool startsWith(const char*);
 		bool startsWith(string);
 		bool startsWith(_NativeFrameworkDSString);
 		// returns true if the string ends with the character in parameter
 		bool endWith(char);
 		// V1.1
-		bool endWith(char*);
+		bool endWith(const char*);
 		bool endWith(string);
 		bool endWith(_NativeFrameworkDSString);
 		bool endsWith(char);
-		bool endsWith(char*);
+		bool endsWith(const char*);
 		bool endsWith(string);
 		bool endsWith(_NativeFrameworkDSString);
 
@@ -180,7 +180,7 @@ class _NativeFrameworkDSString{
 		char* getCString() const;
 		/*string setting functions*/
 		void setString(string);
-		void setString(char*);
+		void setString(const char*);
 		void setString(_NativeFrameworkDSString);
 
 		// type-binding to native type
@@ -193,8 +193,8 @@ class _NativeFrameworkDSString{
 		_NativeFrameworkDSString operator+=(_NativeFrameworkDSString);
 		_NativeFrameworkDSString operator+(char);
 		_NativeFrameworkDSString operator+=(char);
-		_NativeFrameworkDSString operator+(char*);
-		_NativeFrameworkDSString operator+=(char*);
+		_NativeFrameworkDSString operator+(const char*);
+		_NativeFrameworkDSString operator+=(const char*);
 		_NativeFrameworkDSString operator+(string);
 		_NativeFrameworkDSString operator+=(string);
 		/*
@@ -223,10 +223,10 @@ class _NativeFrameworkDSString{
 		*	equality operators
 		*/
 		bool operator==(_NativeFrameworkDSString);
-		bool operator==(char*);
+		bool operator==(const char*);
 		bool operator==(string);
 		bool operator!=(_NativeFrameworkDSString);
-		bool operator!=(char*);
+		bool operator!=(const char*);
 		bool operator!=(string);
 };
 
@@ -408,7 +408,7 @@ private:
 		_NativeFrameworkDSVariant(float);
 		_NativeFrameworkDSVariant(char);
 		_NativeFrameworkDSVariant(string);
-		_NativeFrameworkDSVariant(char*);
+		_NativeFrameworkDSVariant(const char*);
 		_NativeFrameworkDSVariant(bool);
 
 		//getter methods for this variant

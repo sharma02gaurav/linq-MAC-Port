@@ -21,7 +21,7 @@ string _NativeFrameworkDSException::toString(){
 }
 
 /*_NativeFrameworkDSString implementation*/
-_NativeFrameworkDSString::_NativeFrameworkDSString(char* _strValue) : variableString(static_cast<string>(_strValue)){}
+_NativeFrameworkDSString::_NativeFrameworkDSString(const char* _strValue) : variableString(static_cast<string>(_strValue)){}
 _NativeFrameworkDSString::_NativeFrameworkDSString(string _strValue) : variableString(_strValue){}
 _NativeFrameworkDSString::_NativeFrameworkDSString(const _NativeFrameworkDSString &_strValue) : variableString(_strValue.getString()){
 }
@@ -38,7 +38,7 @@ char _NativeFrameworkDSString::charAt(int index){
 int _NativeFrameworkDSString::firstIndexOf(char character){
 	return variableString.find(character);
 }
-int _NativeFrameworkDSString::firstIndexOf(char *lookString){
+int _NativeFrameworkDSString::firstIndexOf(const char *lookString){
 	return variableString.find(lookString);
 }
 int _NativeFrameworkDSString::firstIndexOf(string lookString){
@@ -51,7 +51,7 @@ int _NativeFrameworkDSString::firstIndexOf(_NativeFrameworkDSString lookString){
 int _NativeFrameworkDSString::indexOf(char ch){
 	return firstIndexOf(ch);
 }
-int _NativeFrameworkDSString::indexOf(char *ch){
+int _NativeFrameworkDSString::indexOf(const char *ch){
 	return firstIndexOf(ch);
 }
 int _NativeFrameworkDSString::indexOf(string ch){
@@ -64,7 +64,7 @@ int _NativeFrameworkDSString::indexOf(_NativeFrameworkDSString ch){
 int _NativeFrameworkDSString::lastIndexOf(char character){
 	return variableString.rfind(character);
 }
-int _NativeFrameworkDSString::lastIndexOf(char *lookString){
+int _NativeFrameworkDSString::lastIndexOf(const char *lookString){
 	return variableString.rfind(lookString);
 }
 int _NativeFrameworkDSString::lastIndexOf(string lookString){
@@ -85,17 +85,17 @@ char* _NativeFrameworkDSString::substring(int offset){
 }
 
 // string.compare(string) function return 0 if strings are equal
-bool _NativeFrameworkDSString::equalsTo(char *cmpString){
+bool _NativeFrameworkDSString::equalsTo(const char *cmpString){
 	if(! variableString.compare(cmpString)) return true;
 	return false;
 }
-bool _NativeFrameworkDSString::equalsTo(string cmpString){
+bool _NativeFrameworkDSString::equalsTo(const string cmpString){
 	return equalsTo(cmpString.c_str());
 }
-bool _NativeFrameworkDSString::equalsTo(_NativeFrameworkDSString cmpString){
+bool _NativeFrameworkDSString::equalsTo(const _NativeFrameworkDSString cmpString){
 	return equalsTo(cmpString.getCString());
 }
-bool _NativeFrameworkDSString::equalsIgnoringCase(char *cmpString){
+bool _NativeFrameworkDSString::equalsIgnoringCase(const char *cmpString){
 	_NativeFrameworkDSString _tmpInstance = getString();
 	_tmpInstance.toUpperCase();
 	_NativeFrameworkDSString _tempInstance2 = cmpString;
@@ -110,13 +110,13 @@ bool _NativeFrameworkDSString::equalsIgnoringCase(_NativeFrameworkDSString cmpSt
 	return equalsIgnoringCase(cmpString.getCString());
 }
 bool _NativeFrameworkDSString::isEmpty(){
-	if (length() <= 0 || equalsTo("")) return true;
+	if (length() <= 0) return true;
 	return false;
 }
 bool _NativeFrameworkDSString::isWhitespaceOnly(){
 	if(isEmpty()) return true;
 	for(int i=0; i<length(); i++)
-		if(charAt(i) != 9)
+		if(charAt(i) != 9 && charAt(i) != 32)
 			return false;
 	return true;
 }
@@ -181,7 +181,7 @@ bool _NativeFrameworkDSString::contains(char character){
 	if(firstIndexOf(character) != -1) return true;
 	return false;
 }
-bool _NativeFrameworkDSString::contains(char *testString){
+bool _NativeFrameworkDSString::contains(const char* testString){
 	if(firstIndexOf(testString) != -1) return true;
 	return false;
 }
@@ -203,7 +203,7 @@ void _NativeFrameworkDSString::replace(char character, char withChar){
 	}
 	variableString = string((char*)ind_char);
 }
-void _NativeFrameworkDSString::replace(char *_string, char *withString){
+void _NativeFrameworkDSString::replace(const char *_string, const char *withString){
 	while(contains(_string)){
 		int startIndex = firstIndexOf(_string);
 		int endIndex = startIndex + ((string(_string)).length() -1);
@@ -237,7 +237,7 @@ bool _NativeFrameworkDSString::startWith(string cppString){
 		return true;
 	return false;
 }
-bool _NativeFrameworkDSString::startWith(char *cString){
+bool _NativeFrameworkDSString::startWith(const char *cString){
 	return startWith(string(cString));
 }
 bool _NativeFrameworkDSString::startWith(_NativeFrameworkDSString stringInstance){
@@ -250,7 +250,7 @@ bool _NativeFrameworkDSString::startsWith(char character){
 bool _NativeFrameworkDSString::startsWith(string cppString){
 	return startWith(cppString);
 }
-bool _NativeFrameworkDSString::startsWith(char *cString){
+bool _NativeFrameworkDSString::startsWith(const char *cString){
 	return startWith(string(cString));
 }
 bool _NativeFrameworkDSString::startsWith(_NativeFrameworkDSString stringInstance){
@@ -268,7 +268,7 @@ bool _NativeFrameworkDSString::endWith(string cppString){
 		return true;
 	return false;
 }
-bool _NativeFrameworkDSString::endWith(char *cppString){
+bool _NativeFrameworkDSString::endWith(const char *cppString){
 	return endWith(string(cppString));
 }
 bool _NativeFrameworkDSString::endWith(_NativeFrameworkDSString stringInstance){
@@ -282,7 +282,7 @@ bool _NativeFrameworkDSString::endsWith(char character){
 bool _NativeFrameworkDSString::endsWith(string cppString){
 	return endWith(cppString);
 }
-bool _NativeFrameworkDSString::endsWith(char *cppString){
+bool _NativeFrameworkDSString::endsWith(const char *cppString){
 	return endWith(string(cppString));
 }
 bool _NativeFrameworkDSString::endsWith(_NativeFrameworkDSString stringInstance){
@@ -302,7 +302,7 @@ _NativeFrameworkDSString _NativeFrameworkDSString::operator+(_NativeFrameworkDSS
 void _NativeFrameworkDSString::setString(string cppString){
 	variableString = cppString;
 }
-void _NativeFrameworkDSString::setString(char *cString){
+void _NativeFrameworkDSString::setString(const char *cString){
 	variableString = cString;
 }
 void _NativeFrameworkDSString::setString(_NativeFrameworkDSString stringInstance){
@@ -322,10 +322,10 @@ _NativeFrameworkDSString _NativeFrameworkDSString::operator+=(_NativeFrameworkDS
 void _NativeFrameworkDSString::operator+=(char append){
 	variableString += LinqConverter::toString(append);
 }*/
-_NativeFrameworkDSString _NativeFrameworkDSString::operator+(char *_string){
+_NativeFrameworkDSString _NativeFrameworkDSString::operator+(const char *_string){
 	return _NativeFrameworkDSString(getString() + string(_string));
 }
-_NativeFrameworkDSString _NativeFrameworkDSString::operator+=(char *_string){
+_NativeFrameworkDSString _NativeFrameworkDSString::operator+=(const char *_string){
 	variableString += string(_string);
 	return _NativeFrameworkDSString(getString());
 }
@@ -429,7 +429,7 @@ _NativeFrameworkDSString _NativeFrameworkDSString::operator*=(long times){
 bool _NativeFrameworkDSString::operator==(_NativeFrameworkDSString stringInstance){
 	return equalsTo(stringInstance);
 }
-bool _NativeFrameworkDSString::operator==(char *c_string){
+bool _NativeFrameworkDSString::operator==(const char *c_string){
 	return equalsTo(c_string);
 }
 bool _NativeFrameworkDSString::operator==(string cppString){
@@ -438,7 +438,7 @@ bool _NativeFrameworkDSString::operator==(string cppString){
 bool _NativeFrameworkDSString::operator!=(_NativeFrameworkDSString stringInstance){
 	return equalsTo(stringInstance);
 }
-bool _NativeFrameworkDSString::operator!=(char *cString){
+bool _NativeFrameworkDSString::operator!=(const char *cString){
 	return equalsTo(cString);
 }
 bool _NativeFrameworkDSString::operator!=(string cppString){
@@ -749,7 +749,7 @@ _NativeFrameworkDSString _NativeFrameworkDSDecimal::operator+(const char *cStrin
 	return _NativeFrameworkDSString(out.str() + string(cString));
 }
 _NativeFrameworkDSString _NativeFrameworkDSDecimal::operator+(_NativeFrameworkDSString stringInstance){
-	return _NativeFrameworkDSString("") + getDecimal() + stringInstance;
+	return _NativeFrameworkDSString() + getDecimal() + stringInstance;
 }
 
 // comparison operators
@@ -814,8 +814,8 @@ _NativeFrameworkDSVariant::_NativeFrameworkDSVariant(char _charValue) : charValu
 _NativeFrameworkDSVariant::_NativeFrameworkDSVariant(string _stringValue) : stringValue(static_cast<string>(_stringValue)){
 	activeData = STRING;
 }
-_NativeFrameworkDSVariant::_NativeFrameworkDSVariant(char *_stringValue) : stringValue(static_cast<string>(_stringValue)){
-	activeData = C_STR;
+_NativeFrameworkDSVariant::_NativeFrameworkDSVariant(const char *_stringValue) : stringValue(static_cast<string>(_stringValue)){
+	activeData = STRING;
 }
 _NativeFrameworkDSVariant::_NativeFrameworkDSVariant(bool _booleanValue) : booleanValue(static_cast<bool>(_booleanValue)){
 	activeData = BOOLEAN;
@@ -851,7 +851,7 @@ char _NativeFrameworkDSVariant::getChar(){
 	throw _DSException("Characater value not initalized");
 }
 string _NativeFrameworkDSVariant::getString(){
-	if(activeData == STRING || activeData == C_STR)
+	if(activeData == STRING)
 		return stringValue.c_str();
 	throw _DSException("String value not initialized");
 }
