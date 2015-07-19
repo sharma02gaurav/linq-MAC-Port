@@ -115,7 +115,7 @@ _NativeFrameworkFileInputStream::_NativeFrameworkFileInputStream(string path){
 		throw _StreamsException(path + " file not found.");
 	closeFlag = false;
 }
-_NativeFrameworkFileInputStream::_NativeFrameworkFileInputStream(char *path){
+_NativeFrameworkFileInputStream::_NativeFrameworkFileInputStream(const char *path){
 	inputFile.open(path, ios_base::in);
 	if(! inputFile)
 		throw _StreamsException(string(path) + " file not found.");
@@ -258,7 +258,7 @@ string _NativeFrameworkFileInputStream::getLine(int lineNumber){
 	if(isReadable()){
 		string toReturn = "";
 		if(lineNumber <= linesCount()){
-			for(int i=0; i<lineNumber; i+=1)
+			for(int i=1; i<lineNumber; i+=1)
 				getLine();
 			toReturn = getLine();
 			_seekTo(Begin);
@@ -299,7 +299,7 @@ _NativeFrameworkFileOutputStream::_NativeFrameworkFileOutputStream(string path){
 	}
 	activeFlag = true;
 }
-_NativeFrameworkFileOutputStream::_NativeFrameworkFileOutputStream(char *path){
+_NativeFrameworkFileOutputStream::_NativeFrameworkFileOutputStream(const char *path){
 	outputFile.open(path, ios_base::out);
 	if(! outputFile){
 		activeFlag = false;
@@ -368,7 +368,7 @@ void _NativeFrameworkFileOutputStream::write(char ch){
 void _NativeFrameworkFileOutputStream::write(string str){
 	outputFile << str;
 }
-void _NativeFrameworkFileOutputStream::write(char *str){
+void _NativeFrameworkFileOutputStream::write(const char *str){
 	outputFile << str;
 }
 void _NativeFrameworkFileOutputStream::write(int i){
@@ -388,7 +388,7 @@ void _NativeFrameworkFileOutputStream::writeLine(string str){
 	write(str);
 	writeNewline();
 }
-void _NativeFrameworkFileOutputStream::writeLine(char *str){
+void _NativeFrameworkFileOutputStream::writeLine(const char *str){
 	write(str);
 	writeNewline();
 }
@@ -426,7 +426,7 @@ void _NativeFrameworkFileOutputStream::createCopyOf(string filePath){
 	}else
 		throw _StreamsException(filePath +" file does not exists.");
 }
-void _NativeFrameworkFileOutputStream::createCopyOf(char *filePath){
+void _NativeFrameworkFileOutputStream::createCopyOf(const char *filePath){
 	createCopyOf(string(filePath));
 }
 
@@ -458,7 +458,7 @@ _NativeFrameworkPersistentFileStream::_NativeFrameworkPersistentFileStream(strin
 		throw _StreamsException(inputPath +" file not accessible. Maybe no permissions to access file at this location.");
 	}
 }
-_NativeFrameworkPersistentFileStream::_NativeFrameworkPersistentFileStream(char *inputPath){
+_NativeFrameworkPersistentFileStream::_NativeFrameworkPersistentFileStream(const char *inputPath){
 	outFile.open(inputPath, ios_base::app);
 	if(outFile.good() && outFile){
 		currentPos = outFile.tellp();
@@ -490,7 +490,7 @@ void _NativeFrameworkPersistentFileStream::appendValue(long l){
 void _NativeFrameworkPersistentFileStream::appendValue(string str){
 	outFile << str;
 }
-void _NativeFrameworkPersistentFileStream::appendValue(char *str){
+void _NativeFrameworkPersistentFileStream::appendValue(const char *str){
 	outFile << str;
 }
 void _NativeFrameworkPersistentFileStream::appendValue(double dbl){
@@ -511,7 +511,7 @@ void _NativeFrameworkPersistentFileStream::appendLine(string str){
 	appendValue(str);
 	appendNewline();
 }
-void _NativeFrameworkPersistentFileStream::appendLine(char *str){
+void _NativeFrameworkPersistentFileStream::appendLine(const char *str){
 	appendValue(str);
 	appendNewline();
 }

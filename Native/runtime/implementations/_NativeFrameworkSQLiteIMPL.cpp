@@ -1,5 +1,4 @@
-#ifndef NATIVE_FRAMEWORK_SQLITEIMPL
-#define NATIVE_FRAMEWORK_SQLITEIMPL
+#pragma once
 
 #include "../includes/_NativeFrameworkSQLite.h"
 
@@ -746,7 +745,14 @@ void _NativeFrameworkSQLiteApplication::_attemptConnecting(){
 	// the flags for sqlite3 executions are saved here
 	int executingFlags;
 	if(databasePath.length() != 0){
-		string finalPath = initialDatabase.length() > 0 ? databasePath + "\\" + initialDatabase + string(".db") : databasePath;
+		
+		#ifdef __APPLE__ || __linux__
+			string fileSeparator = "//"; 
+		#elif defined _WIN32 || _WIN64
+			string fileSeparator = "\\";
+		#endif
+		
+		string finalPath = initialDatabase.length() > 0 ? databasePath + fileSeparator + initialDatabase + string(".db") : databasePath;
 
 		if(_databaseExists(finalPath)){
 
@@ -990,12 +996,28 @@ _NativeFrameworkSQLiteConfig _NativeFrameworkSQLiteApplication::getConfig(){
 
 _NativeFrameworkSQLiteApplication _NativeFrameworkSQLiteConnection::getConnection(
 	char *username, char *sendPassword){
-	string baseDirectory = getenv("HOMEDRIVE");
-	string homeDirectory = getenv("HOMEPATH");
+	
+	
+	#ifdef _WIN32 || _WIN64
+		/*
+			target for windows environment
+		*/
+		string baseDirectory = getenv("HOMEDRIVE");
+		string homeDirectory = getenv("HOMEPATH");
+	#elif defined __APPLE__
+		/*
+			target for MAC OSX
+		*/
+		string baseDirectory = "/";
+		string homeDirectory = getenv("HOME");
+	#endif
+			
 
 	string homepath = baseDirectory + fileSep + homeDirectory;
+	//string databasePath = homepath + fileSep + "Linq-Runtime" + fileSep + ".linq-db";
 
-	string databasePath = homepath + fileSep + ".linq-db";
+	// .linq-db changed to linq-db on MAC
+	string databasePath = homepath + fileSep + "linq-db";
 	string initDatabase = "config";
 
 	// define configuration
@@ -1030,6 +1052,3 @@ _NativeFrameworkSQLiteApplication _NativeFrameworkSQLiteConnection::getConnectio
 		throw _SQLiteException("Database instance not configured.");
 
 }
-
-
-#endif

@@ -1,10 +1,16 @@
-#ifndef NATIVE_FRAMEWORK_CONSOLEIMPL
-#define NATIVE_FRAMEWORK_CONSOLEIMPL
+#pragma once
+
+/*
+*	This file is ported for MAC OSX
+*/
 
 #include "../includes/_NativeFrameworkConsole.h"
+#include "../includes/_NativeFrameworkDS.h"
+
+// colors eliminated in MAC port
 
 // to define the console color
-#ifndef FRMWRK_BLK_COL
+/*#ifndef FRMWRK_BLK_COL
 	#define FRMWRK_BLK_COL 0
 #endif
 #ifndef FRMWRK_BLU_COL
@@ -80,10 +86,10 @@ string _NativeFrameworkConsoleColors::_getColorCode(__FrameworkColors requestedC
 
 char* _NativeFrameworkConsoleColors::_compileStatement(string backColor, string textColor){
 	return (char*)(string("\nCOLOR " + backColor + textColor)).c_str();
-}
+}*/
 
 /*implementing the console colors methods*/
-void _NativeFrameworkConsoleColors::setColor(__FrameworkColors backColor, __FrameworkColors textColor){
+/*void _NativeFrameworkConsoleColors::setColor(__FrameworkColors backColor, __FrameworkColors textColor){
 	string backColorCode = _NativeFrameworkConsoleColors::_getColorCode(backColor);
 	string textColorCode = _NativeFrameworkConsoleColors::_getColorCode(textColor);
 
@@ -96,7 +102,7 @@ void _NativeFrameworkConsoleColors::setColor(__FrameworkColors backColor, __Fram
 }
 void _NativeFrameworkConsoleColors::defaultColor(){
 	system("\nCOLOR 0F\n");
-}
+}*/
 
 
 /*
@@ -119,10 +125,10 @@ void _NativeFrameworkConsole::_readDefault(double &dblValue){
 	cin >> dblValue;
 	cout.flush();
 }
-void _NativeFrameworkConsole::_readDefault(char &charVal){
-	cin >> charVal;
-	cout.flush();
-}
+//void _NativeFrameworkConsole::_readDefault(const char &charVal){
+//	cin >> charVal;
+//	cout.flush();
+//}
 
 // implementation
 // print functions goes here
@@ -138,9 +144,11 @@ void _NativeFrameworkConsole::print(long printLong){
 void _NativeFrameworkConsole::print(double printDouble){
 	cout << printDouble;
 }
-void _NativeFrameworkConsole::print(char printChar){
-	cout << printChar;
-}
+// eliminated in MAC port
+//void _NativeFrameworkConsole::print(char printChar){
+//	cout << printChar;
+//}
+
 // v1.1 implementation
 void _NativeFrameworkConsole::print(_NativeFrameworkObject object){
 	cout << object.toString();
@@ -157,25 +165,30 @@ void _NativeFrameworkConsole::printLine(char *printString){
 	_NativeFrameworkConsole::print(string(printString));
 	_NativeFrameworkConsole::printLine();
 }
-void _NativeFrameworkConsole::printLine(long printLong){
+void _NativeFrameworkConsole::printLine(long &printLong){
 	_NativeFrameworkConsole::print(printLong);
 	_NativeFrameworkConsole::printLine();
 }
-void _NativeFrameworkConsole::printLine(double printDouble){
+void _NativeFrameworkConsole::printLine(const double &printDouble){
 	_NativeFrameworkConsole::print(printDouble);
 	_NativeFrameworkConsole::printLine();
 }
-void _NativeFrameworkConsole::printLine(char printChar){
-	_NativeFrameworkConsole::print(printChar);
-	_NativeFrameworkConsole::printLine();
-}
 
-void _NativeFrameworkConsole::printLine(_NativeFrameworkObject object){
+// eliminated in MAC port
+//void _NativeFrameworkConsole::printLine(char printChar){
+//	_NativeFrameworkConsole::print((char)printChar);
+//	_NativeFrameworkConsole::printLine();
+//}
+
+void _NativeFrameworkConsole::printLine(_NativeFrameworkObject &object){
 	cout << object.toString() << endl;
 }
 
+/*
+*	Eliminated in linq MAC port
+*/
 // read functions impl. goes here
-void _NativeFrameworkConsole::read(string &readString){
+/*void _NativeFrameworkConsole::read(string &readString){
 	_NativeFrameworkConsole::_readDefault(readString);
 }
 void _NativeFrameworkConsole::read(char *readString){
@@ -186,15 +199,16 @@ void _NativeFrameworkConsole::read(long &longValue){
 }
 void _NativeFrameworkConsole::read(double &dblValue){
 	_NativeFrameworkConsole::_readDefault(dblValue);
-}
-void _NativeFrameworkConsole::read(char &charValue){
-	_NativeFrameworkConsole::_readDefault(charValue);
-}
+}*/
+// eliminated in MAC port
+//void _NativeFrameworkConsole::read(char &charValue){
+//	_NativeFrameworkConsole::_readDefault(charValue);
+//}
 
 // dynamic read functions
 long _NativeFrameworkConsole::readLong(){
 	long num;
-	_NativeFrameworkConsole::read(num);
+	_NativeFrameworkConsole::_readDefault(num);
 	return num;
 }
 long _NativeFrameworkConsole::readNumber(){
@@ -202,7 +216,7 @@ long _NativeFrameworkConsole::readNumber(){
 }
 double _NativeFrameworkConsole::readDouble(){
 	double dbl;
-	_NativeFrameworkConsole::read(dbl);
+	_NativeFrameworkConsole::_readDefault(dbl);
 	return dbl;
 }
 double _NativeFrameworkConsole::readDecimal(){
@@ -210,28 +224,29 @@ double _NativeFrameworkConsole::readDecimal(){
 }
 string _NativeFrameworkConsole::readString(){
 	string str;
-	_NativeFrameworkConsole::read(str);
+	_NativeFrameworkConsole::_readDefault(str);
 	return str;
 }
-char* _NativeFrameworkConsole::readCString(){
+// ecliminated in mac port
+/*char* _NativeFrameworkConsole::readCString(){
 	char *str;
-	_NativeFrameworkConsole::read(str);
+	_NativeFrameworkConsole::_read(str);
 	return str;
-}
-char _NativeFrameworkConsole::readChar(){
-	char ch;
-	_NativeFrameworkConsole::read(ch);
-	return ch;
-}
+}*/
+//eliminated in MAC port
+//char _NativeFrameworkConsole::readChar(){
+//	char ch;
+//	_NativeFrameworkConsole::read(ch);
+//	return ch;
+//}
+
+// Elimited in MAC port
 
 // colors
 
-void _NativeFrameworkConsole::setConsoleColor(__FrameworkColors backColor, __FrameworkColors textColor){
+/*void _NativeFrameworkConsole::setConsoleColor(__FrameworkColors backColor, __FrameworkColors textColor){
 	_NativeFrameworkConsoleColors::setColor(backColor, textColor);
 }
 void _NativeFrameworkConsole::setDefaultColor(){
 	_NativeFrameworkConsoleColors::defaultColor();
-}
-
-
-#endif
+}*/

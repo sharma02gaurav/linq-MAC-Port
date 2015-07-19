@@ -55,7 +55,7 @@ class _NativeFrameworkFileInputStream{
 		void _seekTo(__SEEK);
 	public:
 		_NativeFrameworkFileInputStream(string);
-		_NativeFrameworkFileInputStream(char*);
+		_NativeFrameworkFileInputStream(const char*);
 
 		/*
 		*	returns true if file is open
@@ -141,7 +141,7 @@ class _NativeFrameworkFileOutputStream{
 		void _seekTo(__SEEK);
 	public:
 		_NativeFrameworkFileOutputStream(string);
-		_NativeFrameworkFileOutputStream(char*);
+		_NativeFrameworkFileOutputStream(const char*);
 
 
 		bool isOpen();
@@ -156,7 +156,7 @@ class _NativeFrameworkFileOutputStream{
 		// the writing to file methods
 		void write(char);
 		void write(string);
-		void write(char*);
+		void write(const char*);
 		void write(int);
 		void write(double);
 		void write(long);
@@ -164,7 +164,7 @@ class _NativeFrameworkFileOutputStream{
 		// the writing line to file methods
 		void writeLine(char);
 		void writeLine(string);
-		void writeLine(char*);
+		void writeLine(const char*);
 		void writeLine(int);
 		void writeLine(double);
 		void writeLine(long);
@@ -179,7 +179,7 @@ class _NativeFrameworkFileOutputStream{
 		*	file does not exists.
 		*/
 		void createCopyOf(string);
-		void createCopyOf(char*);
+		void createCopyOf(const char*);
 		// 	check if the stream is close or not
 		bool isClose();
 
@@ -199,7 +199,7 @@ class _NativeFrameworkPersistentFileStream{
 		ios_base::streampos currentPos;
 	public:
 		_NativeFrameworkPersistentFileStream(string);
-		_NativeFrameworkPersistentFileStream(char*);
+		_NativeFrameworkPersistentFileStream(const char*);
 
 		bool isOpen();
 		bool isClose();
@@ -209,14 +209,14 @@ class _NativeFrameworkPersistentFileStream{
 		void appendValue(int);
 		void appendValue(long);
 		void appendValue(string);
-		void appendValue(char*);
+		void appendValue(const char*);
 		void appendValue(double);
 		void appendValue(char);
 
 		void appendLine(int);
 		void appendLine(long);
 		void appendLine(string);
-		void appendLine(char*);
+		void appendLine(const char*);
 		void appendLine(double);
 		void appendLine(char);
 

@@ -1,6 +1,10 @@
 #ifndef NATIVE_FRAMEWORK_DSIMPL
 #define NATIVE_FRAMEWORK_DSIMPL
 
+/*
+*	This implementation file is for MAC OS X
+*/
+
 #include "../includes/_NativeFrameworkDS.h"
 
 _NativeFrameworkDSException::_NativeFrameworkDSException(string errorMessage,

@@ -1,5 +1,10 @@
 #pragma once
 
+/*
+*	This is a source file is ported for MAC OSX
+*	@author gaurav sharma
+*/
+
 #include <iostream>
 #include <string>
 #include <stdbool.h>
@@ -11,11 +16,11 @@
 
 using namespace std;
 
-#define output(__VALUE) _NativeFrameworkConsole::print((_NativeFrameworkDSString)__VALUE)
-#define outputLine(__VALUE) _NativeFrameworkConsole::printLine((_NativeFrameworkDSString)__VALUE)
+#define output(__VALUE) _NativeFrameworkConsole::print((_NativeFrameworkDSString)""+__VALUE)
+#define outputLine(__VALUE) _NativeFrameworkConsole::printLine((_NativeFrameworkDSString)""+__VALUE)
 
 // to define the console color
-enum __FrameworkColors{
+/*enum __FrameworkColors{
 	Black, 
 	Blue, 
 	Green, 
@@ -32,30 +37,31 @@ enum __FrameworkColors{
 	LightPurple,
 	LightYellow,
 	White
-};
+};*/
 
+// eliminted in MAC Port
 
 // this class is used by the _NativeFrameworkConsole class (only).
-class _NativeFrameworkConsoleColors{
-	private:
+//class _NativeFrameworkConsoleColors{
+//	private:
 		/*
 		*	returns the color code for the requested color. The color codes are defined in defines
 		*/
-		static string _getColorCode(__FrameworkColors);
+//		static string _getColorCode(__FrameworkColors);
 		// create the final executable statement
-		static char* _compileStatement(string, string);
-	public:
+//		static char* _compileStatement(string, string);
+//	public:
 		/*
 		*	set the console colors
 		*	@Param1 for background
 		*	@Param2 for text
 		*/
-		static void setColor(__FrameworkColors, __FrameworkColors);
+//		static void setColor(__FrameworkColors, __FrameworkColors);
 		/*
 		*	change to default colors
 		*/
-		static void defaultColor();
-};
+//		static void defaultColor();
+//};
 
 
 class _NativeFrameworkConsole{
@@ -67,7 +73,7 @@ class _NativeFrameworkConsole{
 		static void _readDefault(char*);
 		static void _readDefault(long&);
 		static void _readDefault(double&);
-		static void _readDefault(char&);
+		//static void _readDefault(char&);
 	public:
 		/*
 		*	printing functions
@@ -76,7 +82,9 @@ class _NativeFrameworkConsole{
 		static void print(char*);
 		static void print(long);
 		static void print(double);
-		static void print(char);
+		
+		// eliminated in MAC port
+		//static void print(char);
 		// V1.1
 		static void print(_NativeFrameworkObject);
 		/*
@@ -85,18 +93,24 @@ class _NativeFrameworkConsole{
 		static void printLine();
 		static void printLine(string);
 		static void printLine(char*);
-		static void printLine(long);
-		static void printLine(double);
-		static void printLine(char);
+		static void printLine(long&);
+		static void printLine(const double&);
+		
+		//eliminated in MAC Port
+		//static void printLine(char);
+		
 		// V1.1
-		static void printLine(_NativeFrameworkObject);
+		static void printLine(_NativeFrameworkObject&);
 
+		// eliminated in MAC port
 		// the explicit read functions
-		static void read(string&);
-		static void read(char*);
-		static void read(long&);
-		static void read(double&);
-		static void read(char&);
+		//static void read(string&);
+		//static void read(char*);
+		//static void read(long&);
+		//static void read(double&);
+		
+		// eliminated in MAC port
+		//static void read(char&);
 
 		// the dynamic read functions
 		static long readLong();
@@ -104,10 +118,14 @@ class _NativeFrameworkConsole{
 		static double readDouble();
 		static double readDecimal();
 		static string readString();
-		static char* readCString();
-		static char readChar();
+		// eliminated in MAC port
+		//static char* readCString();
+		
+		// eliminated in MAC port
+		//static char readChar();
 
+		// eliminated in mac port
 		//change the console colors
-		static void setConsoleColor(__FrameworkColors, __FrameworkColors);
-		static void setDefaultColor();
+		//static void setConsoleColor(__FrameworkColors, __FrameworkColors);
+		//static void setDefaultColor();
 };

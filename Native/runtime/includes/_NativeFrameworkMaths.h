@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+*	This file is ported for MAC OSX
+*/
+
 #include <iostream>
 
 using namespace std;

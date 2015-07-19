@@ -8,6 +8,7 @@
 using namespace std;
 
 /*
+*	This file is ported for MAC OSX
 *	class to convert the primitives data types
 */
 

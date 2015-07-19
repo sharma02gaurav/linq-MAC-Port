@@ -1,9 +1,14 @@
 #pragma once
-/*
-*	NATIVE FRAMEWORK SYSTEM implementation class.
-*	This class gives the access to the various system properties on which the class is being executed.
-*	@Author gaurav sharma
-*	TESTED on windows 8 x64, 8.1 x84 and windows 7 x86
+
+/**
+*	Ported for Max OSX
+*
+*	To Be Ported
+*	
+*	deprecating the system info class as it's application is very rare
+*	and keeping only the Environment Variable manipulator classes in this implementation
+*
+*	@author gaurav
 */
 
 #include <iostream>
@@ -108,6 +113,12 @@ class _NativeFrameworkWindowsSystemVariable{
 };
 
 /*
+*	Following class "DEPRECATED IN MAC OSX PORT"
+*	Rason for Deprecation -> class found impratical
+*	(Will be eliminated in next version of windows port as well)
+*/
+
+/*
 *	contains the very low level properties of the windows OS. this class uses the windows variables definesd in 
 *	windows 7 and windows 8 OS. (Check for these in MS-XP)
 *	for accessing the system properties. The properties are initialized by creating the instance
@@ -116,43 +127,43 @@ class _NativeFrameworkWindowsSystemVariable{
 *	automatically that defines the system. In case, the variable changes, the values that this class provide will
 *	also change. But 99% chances are that this class will give the accurate information.
 */
-class _NativeFrameworkWindowsProperties{
+//class _NativeFrameworkWindowsProperties{
 		//int processorsCount;			//	NUMBER_OF_PROCESSORS
 		//string operatingSystem;		//	OS
 		//string processorArch;			//	PROCESSOR_ARCHITECTURE
 		//string processorId;			//	PROCESSOR_IDENTIFIER
 		//int processorLevel;			//	PROCESSOR_LEVEL
 		//string processorRevision;		// 	PROCESSOR_REVISION
-	public:
+//	public:
 		/*
 		*	Get the number of processor in the system. Uses the Variable NUMBER_OF_PROCESSORS
 		*/
-		static long getProcessorsCount();
+//		static long getProcessorsCount();
 		/*
 		*	Get the name of operating system. Uses the OS Variable
 		*/
-		static string getOSName();
+//		static string getOSName();
 		/*
 		*	Get the Architecture of the processor in the system. Uses PROCESSOR_ARCHITECTURE Variable.
 		*/
-		static string getProcessorArchitecture();
+//		static string getProcessorArchitecture();
 		/*
 		*	Get the Processor identification for the system. Uses PROCESSOR_IDENTIFICATION Variable
 		*/
-		static string getProcessorIdentification();
+//		static string getProcessorIdentification();
 		/*
 		*	Get the Processor Level. Uses the PROCESSOR_LEVEL Variable.
 		*/
-		static string getProcessorLevel();
+//		static string getProcessorLevel();
 		/*
 		*	Get the Processor revision. Uses the PROCESSOR_REVISION Variable
 		*/
-		static string getProcessorRevision();
-};
+//		static string getProcessorRevision();
+//};
 
 /*executing the system commands using this class*/
-class _NativeFrameworkSystemCalls{
-	public:
-		static void execute(char*);
-		static void execute(string);
-};
+//class _NativeFrameworkSystemCalls{
+//	public:
+//		static void execute(char*);
+//		static void execute(string);
+//};

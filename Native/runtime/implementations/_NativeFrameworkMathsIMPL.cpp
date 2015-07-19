@@ -1,5 +1,9 @@
 #include "../includes/_NativeFrameworkMaths.h"
 
+/*
+*	This File is ported for MAC OSX
+*/
+
 double _NativeFrameworkMaths::_squareRootApproximation(double number){
 	double precisionFactor = 0.001;	// 3-digits precision
 

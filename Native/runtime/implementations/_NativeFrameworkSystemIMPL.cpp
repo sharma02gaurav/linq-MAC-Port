@@ -3,6 +3,17 @@
 
 #include "../includes/_NativeFrameworkSystem.h"
 
+/**
+*	Ported for Max OSX
+*
+*	To Be Ported
+*	
+*	deprecating the system info class as it's application is very rare
+*	and keeping only the Environment Variable manipulator classes in this implementation
+*
+*	@author gaurav
+*/
+
 #ifndef EXCEPTION_DEFS
 	#define EXCEPTION_DEFS
 	
@@ -141,60 +152,10 @@ void _NativeFrameworkWindowsSystemVariable::updateSystemVariable(string variable
 
 /*
 *	WindowsProperties Class Implementation
+*	/*
+*	DEPRECATED IN MAC OSX PORT
+*	Rason for Deprecation -> class found impratical
+*	(Will be eliminated in next version of windows port as well)
 */
-
-long _NativeFrameworkWindowsProperties::getProcessorsCount(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("NUMBER_OF_PROCESSORS")){
-		string value = _NativeFrameworkWindowsSystemVariable::getValueOf("NUMBER_OF_PROCESSORS");
-		return atoi(value.c_str());
-	}
-	string msg = string("System Variable \'") + string("NUMBER_OF_PROCESSORS\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-
-string _NativeFrameworkWindowsProperties::getOSName(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("OS"))
-		return _NativeFrameworkWindowsSystemVariable::getValueOf("OS");
-
-	string msg = string("System Variable \'") + string("OS\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-
-string _NativeFrameworkWindowsProperties::getProcessorArchitecture(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("PROCESSOR_ARCHITECTURE"))
-		return _NativeFrameworkWindowsSystemVariable::getValueOf("PROCESSOR_ARCHITECTURE");
-
-	string msg = string("System Variable \'") + string("PROCESSOR_ARCHITECTURE\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-
-string _NativeFrameworkWindowsProperties::getProcessorIdentification(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("PROCESSOR_IDENTIFIER"))
-		return _NativeFrameworkWindowsSystemVariable::getValueOf("PROCESSOR_IDENTIFIER");
-
-	string msg = string("System Variable \'") + string("PROCESSOR_IDENTIFIER\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-string _NativeFrameworkWindowsProperties::getProcessorLevel(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("PROCESSOR_LEVEL"))
-		return _NativeFrameworkWindowsSystemVariable::getValueOf("PROCESSOR_LEVEL");
-
-	string msg = string("System Variable \'") + string("PROCESSOR_LEVEL\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-string _NativeFrameworkWindowsProperties::getProcessorRevision(){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable("PROCESSOR_REVISION"))
-		return _NativeFrameworkWindowsSystemVariable::getValueOf("PROCESSOR_REVISION");
-
-	string msg = string("System Variable \'") + string("PROCESSOR_REVISION\' Modified or using incompatible OS.");
-	throw _SystemException(msg);
-}
-
-void _NativeFrameworkSystemCalls::execute(char *command){
-	system(command);
-}
-void _NativeFrameworkSystemCalls::execute(string command){
-	system(command.c_str());
-}
 
 #endif

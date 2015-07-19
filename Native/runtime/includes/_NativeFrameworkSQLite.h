@@ -4,6 +4,11 @@
 *	#dependecy	-> sqlite3.lib sqlite3.dll and sqlite3.h
 */
 
+/**
+*	Ported for Mac OSX
+*	@author gaurav
+*/
+
 #include <iostream>
 #include <stdlib.h>
 #include <string>
