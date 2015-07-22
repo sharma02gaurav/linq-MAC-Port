@@ -38,5 +38,9 @@ g++ -w -std=c++14 implementations/_NativeFrameworkSQLiteIMPL.cpp -shared -olibs/
 echo "Copying linq sqlite library to the test module"
 cp libs/libfrmwrklinqsqlite.dylib $HOME/Desktop/testing_module/linq\ Mac\ Port\ Testing/libs/
 
+echo "compiling _NativeFrameworkSystemIMPL.cpp and generating libframeworksystem.dylib"
+g++ -w -std=c++14 implementations/_NativeFrameworkSystemIMPL.cpp -shared -olibs/libfrmwrklinqsystem.dylib
+echo "Copying linq system library to the test module"
+cp libs/libfrmwrklinqsystem.dylib $HOME/Desktop/testing_module/linq\ Mac\ Port\ Testing/libs/
 
 echo "Done Compiling.. scroll up to see errors"

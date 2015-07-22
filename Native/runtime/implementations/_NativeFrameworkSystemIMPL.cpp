@@ -1,5 +1,4 @@
-#ifndef NATIVE_FRAMEWORK_SYSTEMIMPL
-#define NATIVE_FRAMEWORK_SYSTEMIMPL
+#pragma once
 
 #include "../includes/_NativeFrameworkSystem.h"
 
@@ -13,7 +12,6 @@
 *
 *	@author gaurav
 */
-
 #ifndef EXCEPTION_DEFS
 	#define EXCEPTION_DEFS
 	
@@ -57,7 +55,7 @@ string _NativeFrameworkSystemException::toString(){
 
 string _NativeFrameworkSystemProperties::getFileSeparator(){
 	return
-		#ifdef _WIN32
+		#ifdef _WIN32 || _WIN64
 			"\\";
 		#else
 			"//";
@@ -65,14 +63,15 @@ string _NativeFrameworkSystemProperties::getFileSeparator(){
 }
 string _NativeFrameworkSystemProperties::getPathSeparator(){
 	return
-		#ifdef _WIN32
+
+		#ifdef _WIN32 || _WIN64
 			";";
 		#else
 			":";
 		#endif
 }
 string _NativeFrameworkSystemProperties::getHomePath(){
-	#ifdef _WIN32
+	#ifdef _WIN32 || _WIN64
 		string baseDir = getenv("HOMEDRIVE");
 		string homePath = baseDir + getFileSeparator() + string(getenv("HOMEPATH"));
 
@@ -82,72 +81,82 @@ string _NativeFrameworkSystemProperties::getHomePath(){
 	#endif
 }
 string _NativeFrameworkSystemProperties::getBaseDirectoryPath(){
-	#ifdef _WIN32
-		return string(getenv("HOMEDRIVE"));
+	#ifdef _WIN32 || _WIN64
+		return string(getenv("HOMEDRIVE");
 	#else
 		return string("/");
 	#endif
 }
 
 /*
-*	WindowsSystemVariable Class Implementation
+*	SystemVariable Class Implementation
 */
 
-bool _NativeFrameworkWindowsSystemVariable::containsVariable(string variableName){
+bool _NativeFrameworkSystemVariable::containsVariable(string variableName){
 	char *varValue = nullptr;
 	varValue = getenv(variableName.c_str());
 	return (varValue == nullptr) ? false : true;
 }
-string _NativeFrameworkWindowsSystemVariable::getValueOf(string variableName){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable(variableName))
+string _NativeFrameworkSystemVariable::getValueOf(string variableName){
+	if(_NativeFrameworkSystemVariable::containsVariable(variableName))
 		return string(getenv(variableName.c_str()));
 	return string("");
 }
-void _NativeFrameworkWindowsSystemVariable::createTempVariable(string variableName, string variableValue){
-	string systemCommand = "\nSET " + variableName + string("=") + variableValue;
-	
-	// execute the system commmand to execute command
-	system(systemCommand.c_str());	// this command will create a temporary variable
+void _NativeFrameworkSystemVariable::createTempVariable(string variableName, string variableValue){
+	#ifdef _WIN32 || _WIN64
+		string systemCommand = "\nSET " + variableName + string("=") + variableValue;
+		// execute the system commmand to execute command
+		system(systemCommand.c_str());	// this command will create a temporary variable
+	#elif defined __APPLE__
+		setenv(variableName.c_str(), variableValue.c_str(), 0);
+	#endif
 }
-void _NativeFrameworkWindowsSystemVariable::updateTempVariable(string variableName, string variableValue){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable(variableName)){
-		
-		string previousValue = _NativeFrameworkWindowsSystemVariable::getValueOf(variableName);
+void _NativeFrameworkSystemVariable::updateTempVariable(string variableName, string variableValue){
+	if(_NativeFrameworkSystemVariable::containsVariable(variableName)){
+
+		string previousValue = _NativeFrameworkSystemVariable::getValueOf(variableName);
 		string pathSeparator = _NativeFrameworkSystemProperties::getPathSeparator();
 		string updateValue = previousValue + pathSeparator + variableValue;
 
 		
-		_NativeFrameworkWindowsSystemVariable::createTempVariable(variableName, updateValue);
+		_NativeFrameworkSystemVariable::createTempVariable(variableName, updateValue);
 	
 	}else
-		_NativeFrameworkWindowsSystemVariable::createTempVariable(variableName, variableValue);
+		_NativeFrameworkSystemVariable::createTempVariable(variableName, variableValue);
 }
 
-void _NativeFrameworkWindowsSystemVariable::createSystemVariable(string variableName, string variableValue){
-	string systemCommand = "\nSETX " + variableName + string(" ") +variableValue;
+void _NativeFrameworkSystemVariable::createSystemVariable(string variableName, string variableValue){
+	#ifdef _WIN32 || _WIN64
+		string systemCommand = "\nSETX " + variableName + string(" ") +variableValue;
+		
+		//execute the system command 
+		system(systemCommand.c_str());
+	#else
+		// for linux and MAC ports.. only temp variables supported in current release
+		_NativeFrameworkSystemVariable::createTempVariable(variableName, variableValue);
+	#endif
 
-	//execute the system command 
-	system(systemCommand.c_str());
 
-	if(!_NativeFrameworkWindowsSystemVariable::containsVariable(variableName)){
+	// throw an exception if variable creation failed 
+	if(!_NativeFrameworkSystemVariable::containsVariable(variableName)){
 		string msg = "Cannot create an environment variable with following values:\nName:\t"+ variableName +"\nValue:\t"+ variableValue;
 		
 		throw _SystemException(msg);
 	}
 }
 
-void _NativeFrameworkWindowsSystemVariable::updateSystemVariable(string variableName, string variableValue){
-	if(_NativeFrameworkWindowsSystemVariable::containsVariable(variableName)){
+void _NativeFrameworkSystemVariable::updateSystemVariable(string variableName, string variableValue){
+	if(_NativeFrameworkSystemVariable::containsVariable(variableName)){
 		
-		string previousValue = _NativeFrameworkWindowsSystemVariable::getValueOf(variableName);
+		string previousValue = _NativeFrameworkSystemVariable::getValueOf(variableName);
 		string pathSeparator = _NativeFrameworkSystemProperties::getPathSeparator();
 		string updateValue = previousValue + pathSeparator + variableValue;
 
 		
-		_NativeFrameworkWindowsSystemVariable::createSystemVariable(variableName, updateValue);
+		_NativeFrameworkSystemVariable::createSystemVariable(variableName, updateValue);
 	
 	}else
-		_NativeFrameworkWindowsSystemVariable::createTempVariable(variableName, variableValue);
+		_NativeFrameworkSystemVariable::createTempVariable(variableName, variableValue);
 }
 
 /*
@@ -157,5 +166,3 @@ void _NativeFrameworkWindowsSystemVariable::updateSystemVariable(string variable
 *	Rason for Deprecation -> class found impratical
 *	(Will be eliminated in next version of windows port as well)
 */
-
-#endif
