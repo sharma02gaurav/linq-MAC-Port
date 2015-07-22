@@ -2,8 +2,6 @@
 
 /**
 *	Ported for Max OSX
-*
-*	To Be Ported
 *	
 *	deprecating the system info class as it's application is very rare
 *	and keeping only the Environment Variable manipulator classes in this implementation
@@ -69,7 +67,7 @@ class _NativeFrameworkSystemProperties{
 *	the system. update/create methods must be used with precision and only if you know what you are doing.
 */
 
-class _NativeFrameworkWindowsSystemVariable{
+class _NativeFrameworkSystemVariable{
 	private:
 	public:
 		/*
